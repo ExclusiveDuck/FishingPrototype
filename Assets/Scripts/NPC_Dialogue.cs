@@ -12,6 +12,7 @@ public class NPC_Dialogue : MonoBehaviour
     [SerializeField] GameObject objective;
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] GameObject triggerText;
+    [SerializeField] GameObject fishingRod;
 
 
     private void Start()
@@ -52,5 +53,7 @@ public class NPC_Dialogue : MonoBehaviour
         objective.SetActive(true);
         triggerText.SetActive(false);
         uiDialogue.SetActive(false);
+
+        fishingRod.SetActive(true);
     }
 }
