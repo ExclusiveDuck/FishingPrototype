@@ -47,7 +47,7 @@ public class NPC_Dialogue : MonoBehaviour
         }
         if (dialogueCounter == 5)
         {
-            text.text = "Great!, My fishing rod os over by the pier... goodluck!";
+            text.text = "Great!, My fishing rod is over by the pier... goodluck!";
             dialogueButton.SetActive(false);
             finishButton.SetActive(true);
         }
