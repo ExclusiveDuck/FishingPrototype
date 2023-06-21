@@ -14,6 +14,7 @@ public class Fishing : MonoBehaviour
     public List<GameObject> fishList = new List<GameObject>();
     public Transform fishSpawn;
     public GameObject player;
+    public GameObject tick;
 
     private void Start()
     {
