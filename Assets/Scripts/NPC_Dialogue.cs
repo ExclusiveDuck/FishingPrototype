@@ -39,7 +39,7 @@ public class NPC_Dialogue : MonoBehaviour
         }
         if (dialogueCounter == 3)
         {
-            text.text = "If you can catch me one each of these 5 fish, I will reward you";
+            text.text = "If you can catch me one of each fish, I will reward you!";
         }
         if (dialogueCounter == 4)
         {
