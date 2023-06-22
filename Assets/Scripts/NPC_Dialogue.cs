@@ -7,7 +7,7 @@ using TMPro;
 public class NPC_Dialogue : MonoBehaviour
 {
     Mouse mouse;
-
+    public Fishing fishingScript;
     [SerializeField] GameObject uiDialogue;
     [SerializeField] GameObject objective;
     [SerializeField] TextMeshProUGUI text;
@@ -15,16 +15,22 @@ public class NPC_Dialogue : MonoBehaviour
     [SerializeField] GameObject fishingRod;
     [SerializeField] GameObject dialogueButton;
     [SerializeField] GameObject finishButton;
+    public TextMeshProUGUI objectiveText;
+
 
     public float dialogueCounter;
 
     private void Start()
     {
+        // telling script to find GameObject player, and within player find script component Mouse.
         mouse = GameObject.Find("Player").GetComponentInChildren<Mouse>();
+
+       
     }
 
     private void Update()
     {
+        // every frame unity is checking to see if we have clicked button which is where we change this float value, to display desired text.
         if (dialogueCounter == 0)
         {
             text.text = "Hello Traveller...";
@@ -47,17 +53,27 @@ public class NPC_Dialogue : MonoBehaviour
         }
         if (dialogueCounter == 5)
         {
+            //disabling the next dialogue button, and enabling the finish button.
             text.text = "Great!, My fishing rod is over by the pier... goodluck!";
             dialogueButton.SetActive(false);
             finishButton.SetActive(true);
         }
-    }
 
+        if (fishingScript.fishCounter == 5)
+        {
+            objectiveText.text = "Congragulations! go back and speak to the towns person";
+        }
+
+    }
+    
+    // onTriggerEnter check the first frame of entering.
     private void OnTriggerEnter(Collider other)
     {
         triggerText.SetActive(true);
     }
+    
 
+    // OnTriggerStay checks every frame while colliding.
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -66,11 +82,12 @@ public class NPC_Dialogue : MonoBehaviour
             {
                 triggerText.SetActive(false);
                 uiDialogue.SetActive(true);
-                mouse.canMoveMouse = false;
+                mouse.canMoveMouse = false; // Setting the boolean (mouse script) to false
+
             }
         }
     }
-
+    //OntriggerExit checks the last frame of exiting.
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -84,12 +101,12 @@ public class NPC_Dialogue : MonoBehaviour
 
     public void NextDialogue()
     {
-        dialogueCounter++;
+        dialogueCounter++; // adding +1 to the dialogueCounter float.
     }
 
     public void PreviousDialogue()
     {
-        dialogueCounter--;
+        dialogueCounter--; // subtracting 1 to the dialogueCounter float.
     }
     public void ActivateObjective()
     {

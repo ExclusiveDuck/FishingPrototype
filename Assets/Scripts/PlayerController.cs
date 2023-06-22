@@ -21,11 +21,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Checking if player is grounded through the use of a checksphere.
         isGrounded = Physics.CheckSphere(groundCheck.position, radius, ground);
 
         if (isGrounded && velocity.y <   0f)
         {
             velocity.y = -2f;
+            // setting our velocity.y to -2
         }
 
         float x = Input.GetAxisRaw("Horizontal");
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
 
         controller.Move(move * speed * Time.deltaTime);
+        // moving character controller at the rate of our speed over time.deltatime
 
         velocity.y -= gravityValue * Time.deltaTime;
 

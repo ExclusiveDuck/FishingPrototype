@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Destroy : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // destroying Gameobject (fish) 2.5 seconds after catching it.
     void Start()
     {
         Destroy(gameObject, 2.5f);
