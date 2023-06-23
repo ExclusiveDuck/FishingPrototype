@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Fishing : MonoBehaviour
 {
@@ -11,9 +12,12 @@ public class Fishing : MonoBehaviour
     public float timeToCatchFish;
     public float timer;
     public bool hasCastLine;
-    public List<GameObject> fishList = new List<GameObject>();
+    public List<GameObject> fishList = new List<GameObject>(); // creating a list of gameobjects, calling that list fishlist.
     public Transform fishSpawn;
     public GameObject player;
+    public GameObject tick;
+    public TextMeshProUGUI counterText;
+    public float fishCounter;
 
     private void Start()
     {
@@ -22,13 +26,18 @@ public class Fishing : MonoBehaviour
 
     private void Update()
     {
-        //timer used for blah blah, counts down
-        if (timer > 0)
+        counterText.text = fishCounter + "/5"; // accessing text of Textmeshpro, text being the float value.
+        if (fishCounter > 5)
+        {
+            fishCounter = 5;
+        }
+
+        if (timer > 0) // checking if timer float is greater than 0, if it is, start counting down to 0.
         {
             timer -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && timer > 0 && hasCastLine)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && timer > 0 && hasCastLine) // checking if correct button has been pressed, andn is greater than 0 and if bool hascastline is true, call method ReelInFish
         {
             ReelInFish();
         }
@@ -38,29 +47,31 @@ public class Fishing : MonoBehaviour
              ReturnToNormal();
          }      
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0)) 
         {
-            anim.SetBool("CastLine", true);
-            //StartCoroutine("CaughtFish", Random.Range(minCatch, maxCatch));
-            Invoke("CaughtFish", Random.Range(minCatch,maxCatch));
+            anim.SetBool("CastLine", true); //Accessing animator component, setting bool parameter "castline" to true
+            Invoke("CaughtFish", Random.Range(minCatch,maxCatch)); // invoking CaughtFish method with a range between number value set in inspector.
         }
     }
    private void CaughtFish()
    {
-        anim.SetBool("CaughtFish", true);
-        timer = timeToCatchFish;
+        anim.SetBool("CaughtFish", true); 
+        timer = timeToCatchFish; // Setting timer value to 3 seconds which is timeToCatchFish.
         hasCastLine = true;
    }
 
 
     private void ReelInFish()
     {
-        //this does a 
+        int randomFish = Random.Range(0, fishList.Count); // the number randomfish = a random range between 0 and 5
         anim.SetBool("CaughtFish", false);
         anim.SetBool("CastLine", false);
-        Instantiate(fishList[Random.Range(0, fishList.Count)], fishSpawn.position, player.transform.rotation, player.transform);
+        Instantiate(fishList[randomFish], fishSpawn.position, player.transform.rotation, player.transform); // get random fish from list, instantiate that random fish at spawnfishpoint position
+        fishList.RemoveAt(randomFish);
         hasCastLine = false;
         Debug.Log("Caught");
+
+        fishCounter++;
     }
 
 
