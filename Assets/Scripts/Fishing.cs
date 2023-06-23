@@ -22,6 +22,7 @@ public class Fishing : MonoBehaviour
 
     private void Update()
     {
+        //timer used for blah blah, counts down
         if (timer > 0)
         {
             timer -= Time.deltaTime;
@@ -54,6 +55,7 @@ public class Fishing : MonoBehaviour
 
     private void ReelInFish()
     {
+        //this does a 
         anim.SetBool("CaughtFish", false);
         anim.SetBool("CastLine", false);
         Instantiate(fishList[Random.Range(0, fishList.Count)], fishSpawn.position, player.transform.rotation, player.transform);
